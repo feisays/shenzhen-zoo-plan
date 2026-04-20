@@ -142,6 +142,13 @@
       margin-bottom: 24px;
     }
 
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
     .segmented {
       display: inline-grid;
       grid-template-columns: repeat(2, 1fr);
@@ -165,6 +172,33 @@
     .segmented button[aria-pressed="true"] {
       background: var(--forest);
       color: white;
+    }
+
+    .print-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 13px;
+      border: 1px solid var(--forest);
+      background: var(--forest);
+      color: white;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .print-button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .print-button:hover {
+      background: #0f4835;
     }
 
     .notice {
@@ -218,63 +252,209 @@
     }
 
     .timeline {
-      padding: 8px 20px 20px;
+      counter-reset: route-stop;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      position: relative;
+      margin: 0;
+      padding: 22px 20px 24px;
+      background:
+        radial-gradient(circle at 15% 18%, rgba(99, 163, 117, .18), transparent 18%),
+        radial-gradient(circle at 78% 20%, rgba(39, 125, 161, .14), transparent 16%),
+        radial-gradient(circle at 64% 78%, rgba(216, 92, 69, .1), transparent 18%),
+        linear-gradient(90deg, rgba(24, 89, 67, .045) 1px, transparent 1px),
+        linear-gradient(rgba(24, 89, 67, .04) 1px, transparent 1px);
+      background-size: auto, auto, auto, 28px 28px, 28px 28px;
+      overflow: hidden;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      inset: 28px 24px;
+      background:
+        linear-gradient(115deg, transparent 0 14%, rgba(24, 89, 67, .22) 14% 15.2%, transparent 15.2% 34%, rgba(24, 89, 67, .22) 34% 35.2%, transparent 35.2% 54%, rgba(24, 89, 67, .22) 54% 55.2%, transparent 55.2% 74%, rgba(24, 89, 67, .22) 74% 75.2%, transparent 75.2% 100%);
+      mask-image: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 18px);
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .route-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      padding: 14px 20px 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .route-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 26px;
+      padding: 4px 8px;
+      border: 1px solid rgba(24, 89, 67, .14);
+      background: #f8fbf5;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .route-legend i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--leaf);
+    }
+
+    .route-legend i[data-kind="show"] {
+      background: var(--coral);
+    }
+
+    .route-legend i[data-kind="food"] {
+      background: var(--gold);
+    }
+
+    .route-legend i[data-kind="indoor"] {
+      background: var(--water);
+    }
+
+    body[data-mode="rain"] .route-legend.rain-only {
+      display: flex;
     }
 
     .event {
+      counter-increment: route-stop;
       display: grid;
-      grid-template-columns: 96px 24px minmax(0, 1fr);
+      grid-template-columns: 64px minmax(0, 1fr);
       gap: 14px;
       position: relative;
-      padding: 18px 0;
+      min-height: 146px;
+      padding: 14px;
+      border: 1px solid rgba(24, 89, 67, .18);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .82)),
+        var(--panel);
+      box-shadow: 0 16px 34px rgba(23, 32, 28, .11);
+      z-index: 1;
+    }
+
+    .event:nth-child(4n + 2),
+    .event:nth-child(4n + 3) {
+      transform: translateY(10px);
     }
 
     .event:not(:last-child)::before {
       content: "";
       position: absolute;
-      left: 107px;
-      top: 44px;
-      bottom: -17px;
+      left: 44px;
+      top: 74px;
+      bottom: -28px;
       width: 2px;
-      background: linear-gradient(var(--leaf), rgba(99, 163, 117, .18));
+      background: repeating-linear-gradient(180deg, rgba(24, 89, 67, .34) 0 8px, transparent 8px 15px);
+      pointer-events: none;
+    }
+
+    .event:nth-child(even):not(:last-child)::before {
+      left: auto;
+      right: 44px;
     }
 
     .time {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: start;
+      margin-top: 58px;
+      min-height: 54px;
+      padding: 8px 6px;
+      border: 1px solid rgba(24, 89, 67, .2);
+      background: #f7fbf4;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 19px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--forest);
       line-height: 1.15;
+      text-align: center;
+      box-shadow: none;
     }
 
     .dot {
-      width: 18px;
-      height: 18px;
-      margin-top: 3px;
-      border: 3px solid var(--panel);
+      position: absolute;
+      left: 24px;
+      top: 18px;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 4px solid var(--panel);
       background: var(--leaf);
-      box-shadow: 0 0 0 2px var(--leaf);
-      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--leaf), 0 12px 20px rgba(23, 32, 28, .18);
+      border-radius: 50% 50% 50% 10px;
+      transform: rotate(-45deg);
       z-index: 1;
+    }
+
+    .dot::before {
+      content: counter(route-stop);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      transform: rotate(45deg);
     }
 
     .event[data-type="show"] .dot {
       background: var(--coral);
-      box-shadow: 0 0 0 2px var(--coral);
+      box-shadow: 0 0 0 2px var(--coral), 0 12px 20px rgba(23, 32, 28, .18);
     }
 
     .event[data-type="food"] .dot {
       background: var(--gold);
-      box-shadow: 0 0 0 2px var(--gold);
+      box-shadow: 0 0 0 2px var(--gold), 0 12px 20px rgba(23, 32, 28, .18);
     }
 
     .event[data-type="indoor"] .dot {
       background: var(--water);
-      box-shadow: 0 0 0 2px var(--water);
+      box-shadow: 0 0 0 2px var(--water), 0 12px 20px rgba(23, 32, 28, .18);
     }
 
     .event-body {
+      grid-column: 2;
+      grid-row: 1;
       min-width: 0;
+      position: relative;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .event[data-type="show"] .event-body {
+      background: transparent;
+    }
+
+    .event[data-type="food"] .event-body {
+      background: transparent;
+    }
+
+    .event[data-type="indoor"] .event-body {
+      background: transparent;
+    }
+
+    .event-body::before {
+      content: "路线点 " counter(route-stop);
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      border: 1px solid rgba(24, 89, 67, .16);
+      background: #f4faf5;
+      color: var(--forest);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
     }
 
     .event-body h3 {
@@ -294,10 +474,13 @@
       margin: 18px 20px 22px;
       padding: 18px;
       background:
-        radial-gradient(circle at 18% 24%, rgba(99, 163, 117, .22), transparent 22%),
-        radial-gradient(circle at 76% 18%, rgba(39, 125, 161, .22), transparent 20%),
-        radial-gradient(circle at 62% 78%, rgba(216, 92, 69, .14), transparent 18%),
+        linear-gradient(90deg, rgba(24, 89, 67, .04) 1px, transparent 1px),
+        linear-gradient(rgba(24, 89, 67, .04) 1px, transparent 1px),
+        radial-gradient(circle at 18% 24%, rgba(99, 163, 117, .2), transparent 22%),
+        radial-gradient(circle at 76% 18%, rgba(39, 125, 161, .2), transparent 20%),
+        radial-gradient(circle at 62% 78%, rgba(216, 92, 69, .12), transparent 18%),
         #f4f6ef;
+      background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
       border: 1px solid var(--line);
       min-height: 210px;
       position: relative;
@@ -326,6 +509,7 @@
       padding: 10px;
       border: 1px solid rgba(24, 89, 67, .2);
       background: rgba(255, 255, 255, .78);
+      box-shadow: 0 10px 22px rgba(23, 32, 28, .07);
     }
 
     .map-stop b {
@@ -521,8 +705,35 @@
         flex-direction: column;
       }
 
+      .controls {
+        align-items: stretch;
+      }
+
       .segmented {
+        flex: 1 1 260px;
         width: 100%;
+      }
+
+      .print-button {
+        flex: 1 1 180px;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        inset: 24px;
+        background: linear-gradient(180deg, rgba(24, 89, 67, .18), rgba(24, 89, 67, .08));
+        width: 2px;
+        left: 48px;
+        right: auto;
+        mask-image: repeating-linear-gradient(180deg, #000 0 10px, transparent 10px 18px);
+      }
+
+      .event:nth-child(4n + 2),
+      .event:nth-child(4n + 3) {
+        transform: none;
       }
 
       .map-grid {
@@ -549,17 +760,42 @@
         flex-direction: column;
       }
 
-      .event {
-        grid-template-columns: 74px 20px minmax(0, 1fr);
-        gap: 10px;
-      }
-
-      .event:not(:last-child)::before {
-        left: 83px;
-      }
-
       .time {
-        font-size: 16px;
+        min-height: 72px;
+        font-size: 15px;
+      }
+
+      .timeline {
+        padding: 14px 12px 16px;
+      }
+
+      .event {
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 12px;
+        min-height: 138px;
+        padding: 12px;
+      }
+
+      .event:not(:last-child)::before,
+      .event:nth-child(even):not(:last-child)::before {
+        left: 35px;
+        right: auto;
+        top: 68px;
+        bottom: -24px;
+        width: 2px;
+        border: 0;
+        border-radius: 0;
+        background: repeating-linear-gradient(180deg, rgba(24, 89, 67, .34) 0 8px, transparent 8px 15px);
+      }
+
+      .dot {
+        left: 20px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .event-body {
+        padding: 0;
       }
 
       .map-grid {
@@ -568,6 +804,228 @@
 
       .weather {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    @media print {
+      :root {
+        --ink: #111;
+        --muted: #444;
+        --paper: #fff;
+        --panel: #fff;
+        --line: #cfd6cb;
+        --shadow: none;
+      }
+
+      * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        width: 210mm;
+        background: #fff;
+      }
+
+      body {
+        color: #111;
+        font-size: 11pt;
+      }
+
+      .hero {
+        min-height: 0;
+        color: #111;
+        background: #fff;
+        border-bottom: 2px solid var(--forest);
+      }
+
+      .hero::after,
+      .print-button {
+        display: none !important;
+      }
+
+      .hero-inner,
+      .content {
+        width: auto;
+        margin: 0;
+      }
+
+      .hero-inner {
+        padding: 0 0 10mm;
+      }
+
+      .stamp {
+        border-color: var(--line);
+        color: var(--forest);
+        backdrop-filter: none;
+      }
+
+      h1 {
+        margin: 6mm 0 3mm;
+        font-size: 32pt;
+        line-height: 1;
+      }
+
+      .hero-copy {
+        max-width: none;
+        color: #333;
+        font-size: 11pt;
+      }
+
+      .facts {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: none;
+        gap: 3mm;
+        margin-top: 6mm;
+      }
+
+      .fact {
+        min-height: 0;
+        border-color: var(--line);
+        background: #fff;
+        backdrop-filter: none;
+      }
+
+      .fact small,
+      .fact strong {
+        color: #111;
+      }
+
+      .content {
+        padding: 7mm 0 0;
+      }
+
+      .control-row {
+        display: block;
+        margin-bottom: 6mm;
+      }
+
+      .controls {
+        display: none;
+      }
+
+      .notice {
+        max-width: none;
+        padding: 3mm;
+        border: 1px solid var(--line);
+        color: #222;
+      }
+
+      .dashboard,
+      .transport {
+        display: block;
+      }
+
+      .section,
+      .transport-card {
+        break-inside: avoid;
+        box-shadow: none;
+        background: #fff;
+      }
+
+      .section-header {
+        padding: 4mm 0 3mm;
+      }
+
+      .section-header,
+      .tag,
+      .event-body,
+      .route-map,
+      .map-stop,
+      .weather,
+      .transport-card {
+        border-color: var(--line);
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 3mm;
+        padding: 4mm 0 5mm;
+        background-size: 8mm 8mm;
+        overflow: visible;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .route-legend {
+        display: flex;
+        padding: 3mm 0 1mm;
+        gap: 2mm;
+      }
+
+      .event {
+        break-inside: avoid;
+        grid-template-columns: 23mm minmax(0, 1fr);
+        min-height: 0;
+        padding: 3mm;
+        transform: none !important;
+        box-shadow: none;
+      }
+
+      .event:not(:last-child)::before,
+      .event:nth-child(even):not(:last-child)::before {
+        display: none;
+      }
+
+      .time {
+        margin-top: 12mm;
+        min-height: 13mm;
+        padding: 2mm;
+        box-shadow: none;
+      }
+
+      .dot {
+        left: 6mm;
+        top: 4mm;
+        width: 10mm;
+        height: 10mm;
+        box-shadow: 0 0 0 1.5pt currentColor;
+      }
+
+      .event-body {
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .route-map {
+        min-height: 0;
+        margin: 4mm 0 6mm;
+      }
+
+      .sidebar {
+        display: block;
+      }
+
+      .mini,
+      .transport-card {
+        margin-top: 5mm;
+        padding: 4mm;
+      }
+
+      .weather,
+      .transport {
+        page-break-inside: avoid;
+      }
+
+      .weather-icon,
+      input[type="checkbox"],
+      .bar span,
+      .mark {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .credit {
+        margin-top: 7mm;
       }
     }
   </style>
@@ -601,9 +1059,17 @@
 
   <main class="content">
     <div class="control-row">
-      <div class="segmented" aria-label="路线模式">
-        <button type="button" aria-pressed="true" data-mode="default">完整路线</button>
-        <button type="button" aria-pressed="false" data-mode="rain">雨天路线</button>
+      <div class="controls">
+        <div class="segmented" aria-label="路线模式">
+          <button type="button" aria-pressed="true" data-mode="default">完整路线</button>
+          <button type="button" aria-pressed="false" data-mode="rain">雨天路线</button>
+        </div>
+        <button class="print-button" type="button" data-print aria-label="打印或导出 PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M7 3h10v5H7V3Zm10 14h2v-6H5v6h2v-4h10v4Zm-8 4h6v-6H9v6ZM5 9h14a2 2 0 0 1 2 2v7h-4v5H7v-5H3v-7a2 2 0 0 1 2-2Zm13 3.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z"/>
+          </svg>
+          打印 / 导出 PDF
+        </button>
       </div>
       <p class="notice">周六表演时间可能临时调整。入园后先看门口公告牌，把 13:00 海洋天地和 16:00 左右大型表演作为两条固定锚点。</p>
     </div>
@@ -611,9 +1077,23 @@
     <section class="dashboard" aria-label="游玩计划看板">
       <div class="section">
         <div class="section-header">
-          <h2>时间轴</h2>
+          <h2>园区路线卡片</h2>
           <span class="tag default-only">上午看动物，下午看表演</span>
           <span class="tag rain-only">室内优先，户外见缝插针</span>
+        </div>
+
+        <div class="route-legend default-only" aria-label="路线卡片图例">
+          <span><i></i>户外展区</span>
+          <span><i data-kind="show"></i>表演锚点</span>
+          <span><i data-kind="food"></i>餐饮休整</span>
+          <span><i data-kind="indoor"></i>室内缓冲</span>
+          像园区导览图一样，从编号图钉一路顺着停靠点走。
+        </div>
+        <div class="route-legend rain-only" aria-label="雨天路线卡片图例">
+          <span><i data-kind="indoor"></i>室内优先</span>
+          <span><i data-kind="show"></i>固定表演</span>
+          <span><i data-kind="food"></i>提前午餐</span>
+          雨天路线减少开阔区停留，按最近的室内点串起来。
         </div>
 
         <div class="timeline default-only">
@@ -854,6 +1334,7 @@
 
   <script>
     const buttons = document.querySelectorAll("[data-mode]");
+    const printButton = document.querySelector("[data-print]");
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -864,6 +1345,10 @@
           item.setAttribute("aria-pressed", String(item === button));
         });
       });
+    });
+
+    printButton?.addEventListener("click", () => {
+      window.print();
     });
   </script>
 </body>
