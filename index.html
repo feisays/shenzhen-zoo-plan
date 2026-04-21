@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>深圳野生动物园 4月25日游玩计划</title>
+  <style>
+    :root {
+      --ink: #17201c;
+      --muted: #5e6b65;
+      --paper: #f7f8f3;
+      --panel: #ffffff;
+      --line: #d9dfd2;
+      --forest: #185943;
+      --leaf: #63a375;
+      --water: #277da1;
+      --coral: #d85c45;
+      --gold: #d7a32f;
+      --shadow: 0 18px 42px rgba(23, 32, 28, .13);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(24, 89, 67, .04) 1px, transparent 1px),
+        linear-gradient(rgba(24, 89, 67, .04) 1px, transparent 1px),
+        var(--paper);
+      background-size: 22px 22px;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 68vh;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10, 20, 15, .18) 0%, rgba(10, 20, 15, .62) 65%, rgba(10, 20, 15, .82) 100%),
+        url("https://commons.wikimedia.org/wiki/Special:Redirect/file/SHENZHEN%20SAFARI%20PARK%20%283%29.jpg?width=1800") center / cover;
+      color: white;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 96px;
+      background: linear-gradient(180deg, transparent, var(--paper));
+      pointer-events: none;
+    }
+
+    .hero-inner,
+    .content {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 56px 0 86px;
+    }
+
+    .stamp {
+      width: fit-content;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, .72);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      max-width: 820px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 8vw, 88px);
+      line-height: .94;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(16px, 2vw, 21px);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .88);
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+      max-width: 920px;
+    }
+
+    .fact {
+      min-height: 78px;
+      padding: 13px 14px;
+      border: 1px solid rgba(255, 255, 255, .32);
+      background: rgba(255, 255, 255, .12);
+      backdrop-filter: blur(10px);
+    }
+
+    .fact small {
+      display: block;
+      color: rgba(255, 255, 255, .68);
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .fact strong {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 26px 0 56px;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .segmented {
+      display: inline-grid;
+      grid-template-columns: repeat(2, 1fr);
+      min-width: 260px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .segmented button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 10px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .segmented button[aria-pressed="true"] {
+      background: var(--forest);
+      color: white;
+    }
+
+    .print-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 13px;
+      border: 1px solid var(--forest);
+      background: var(--forest);
+      color: white;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .print-button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .print-button:hover {
+      background: #0f4835;
+    }
+
+    .notice {
+      max-width: 560px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(310px, .8fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 30px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      color: var(--forest);
+      background: #f4faf5;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .timeline {
+      counter-reset: route-stop;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      position: relative;
+      margin: 0;
+      padding: 22px 20px 24px;
+      background:
+        radial-gradient(circle at 15% 18%, rgba(99, 163, 117, .18), transparent 18%),
+        radial-gradient(circle at 78% 20%, rgba(39, 125, 161, .14), transparent 16%),
+        radial-gradient(circle at 64% 78%, rgba(216, 92, 69, .1), transparent 18%),
+        linear-gradient(90deg, rgba(24, 89, 67, .045) 1px, transparent 1px),
+        linear-gradient(rgba(24, 89, 67, .04) 1px, transparent 1px);
+      background-size: auto, auto, auto, 28px 28px, 28px 28px;
+      overflow: hidden;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      inset: 28px 24px;
+      background:
+        linear-gradient(115deg, transparent 0 14%, rgba(24, 89, 67, .22) 14% 15.2%, transparent 15.2% 34%, rgba(24, 89, 67, .22) 34% 35.2%, transparent 35.2% 54%, rgba(24, 89, 67, .22) 54% 55.2%, transparent 55.2% 74%, rgba(24, 89, 67, .22) 74% 75.2%, transparent 75.2% 100%);
+      mask-image: repeating-linear-gradient(90deg, #000 0 10px, transparent 10px 18px);
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .route-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      padding: 14px 20px 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .route-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 26px;
+      padding: 4px 8px;
+      border: 1px solid rgba(24, 89, 67, .14);
+      background: #f8fbf5;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .route-legend i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--leaf);
+    }
+
+    .route-legend i[data-kind="show"] {
+      background: var(--coral);
+    }
+
+    .route-legend i[data-kind="food"] {
+      background: var(--gold);
+    }
+
+    .route-legend i[data-kind="indoor"] {
+      background: var(--water);
+    }
+
+    body[data-mode="rain"] .route-legend.rain-only {
+      display: flex;
+    }
+
+    .event {
+      counter-increment: route-stop;
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 14px;
+      position: relative;
+      min-height: 146px;
+      padding: 14px;
+      border: 1px solid rgba(24, 89, 67, .18);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .96), rgba(255, 255, 255, .82)),
+        var(--panel);
+      box-shadow: 0 16px 34px rgba(23, 32, 28, .11);
+      z-index: 1;
+    }
+
+    .event:nth-child(4n + 2),
+    .event:nth-child(4n + 3) {
+      transform: translateY(10px);
+    }
+
+    .event:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 44px;
+      top: 74px;
+      bottom: -28px;
+      width: 2px;
+      background: repeating-linear-gradient(180deg, rgba(24, 89, 67, .34) 0 8px, transparent 8px 15px);
+      pointer-events: none;
+    }
+
+    .event:nth-child(even):not(:last-child)::before {
+      left: auto;
+      right: 44px;
+    }
+
+    .time {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: start;
+      margin-top: 58px;
+      min-height: 54px;
+      padding: 8px 6px;
+      border: 1px solid rgba(24, 89, 67, .2);
+      background: #f7fbf4;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.15;
+      text-align: center;
+      box-shadow: none;
+    }
+
+    .dot {
+      position: absolute;
+      left: 24px;
+      top: 18px;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 4px solid var(--panel);
+      background: var(--leaf);
+      box-shadow: 0 0 0 2px var(--leaf), 0 12px 20px rgba(23, 32, 28, .18);
+      border-radius: 50% 50% 50% 10px;
+      transform: rotate(-45deg);
+      z-index: 1;
+    }
+
+    .dot::before {
+      content: counter(route-stop);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      transform: rotate(45deg);
+    }
+
+    .event[data-type="show"] .dot {
+      background: var(--coral);
+      box-shadow: 0 0 0 2px var(--coral), 0 12px 20px rgba(23, 32, 28, .18);
+    }
+
+    .event[data-type="food"] .dot {
+      background: var(--gold);
+      box-shadow: 0 0 0 2px var(--gold), 0 12px 20px rgba(23, 32, 28, .18);
+    }
+
+    .event[data-type="indoor"] .dot {
+      background: var(--water);
+      box-shadow: 0 0 0 2px var(--water), 0 12px 20px rgba(23, 32, 28, .18);
+    }
+
+    .event-body {
+      grid-column: 2;
+      grid-row: 1;
+      min-width: 0;
+      position: relative;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .event[data-type="show"] .event-body {
+      background: transparent;
+    }
+
+    .event[data-type="food"] .event-body {
+      background: transparent;
+    }
+
+    .event[data-type="indoor"] .event-body {
+      background: transparent;
+    }
+
+    .event-body::before {
+      content: "路线点 " counter(route-stop);
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      border: 1px solid rgba(24, 89, 67, .16);
+      background: #f4faf5;
+      color: var(--forest);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .event-body h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .event-body p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .route-map {
+      margin: 18px 20px 22px;
+      padding: 18px;
+      background:
+        linear-gradient(90deg, rgba(24, 89, 67, .04) 1px, transparent 1px),
+        linear-gradient(rgba(24, 89, 67, .04) 1px, transparent 1px),
+        radial-gradient(circle at 18% 24%, rgba(99, 163, 117, .2), transparent 22%),
+        radial-gradient(circle at 76% 18%, rgba(39, 125, 161, .2), transparent 20%),
+        radial-gradient(circle at 62% 78%, rgba(216, 92, 69, .12), transparent 18%),
+        #f4f6ef;
+      background-size: 24px 24px, 24px 24px, auto, auto, auto, auto;
+      border: 1px solid var(--line);
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .route-map::before {
+      content: "";
+      position: absolute;
+      inset: 42px 32px;
+      border: 3px dashed rgba(24, 89, 67, .32);
+      transform: rotate(-5deg);
+      border-radius: 50%;
+    }
+
+    .map-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .map-stop {
+      min-height: 74px;
+      padding: 10px;
+      border: 1px solid rgba(24, 89, 67, .2);
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 10px 22px rgba(23, 32, 28, .07);
+    }
+
+    .map-stop b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .map-stop span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 18px;
+    }
+
+    .mini {
+      padding: 18px;
+    }
+
+    .mini h2 {
+      margin-bottom: 14px;
+    }
+
+    .weather {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 14px;
+      background: #f2f8fb;
+      border: 1px solid #d3e7f0;
+    }
+
+    .weather-icon {
+      display: grid;
+      place-items: center;
+      height: 76px;
+      background: var(--water);
+      color: white;
+      font-size: 34px;
+    }
+
+    .weather p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .budget-row {
+      margin: 14px 0 0;
+    }
+
+    .budget-row label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .bar {
+      height: 12px;
+      background: #e8ece4;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--forest), var(--leaf));
+    }
+
+    .highlights {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .highlights li {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .highlights b {
+      color: var(--ink);
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      background: var(--forest);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+    }
+
+    .checklist label {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 1px 0 0;
+      accent-color: var(--forest);
+    }
+
+    .transport {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .transport-card {
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .transport-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .transport-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .credit {
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .rain-only {
+      display: none;
+    }
+
+    body[data-mode="rain"] .default-only {
+      display: none;
+    }
+
+    body[data-mode="rain"] .rain-only {
+      display: grid;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 74vh;
+      }
+
+      .facts,
+      .dashboard,
+      .transport {
+        grid-template-columns: 1fr;
+      }
+
+      .control-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .controls {
+        align-items: stretch;
+      }
+
+      .segmented {
+        flex: 1 1 260px;
+        width: 100%;
+      }
+
+      .print-button {
+        flex: 1 1 180px;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        inset: 24px;
+        background: linear-gradient(180deg, rgba(24, 89, 67, .18), rgba(24, 89, 67, .08));
+        width: 2px;
+        left: 48px;
+        right: auto;
+        mask-image: repeating-linear-gradient(180deg, #000 0 10px, transparent 10px 18px);
+      }
+
+      .event:nth-child(4n + 2),
+      .event:nth-child(4n + 3) {
+        transform: none;
+      }
+
+      .map-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner,
+      .content {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero-inner {
+        padding-bottom: 74px;
+      }
+
+      .fact {
+        min-height: 68px;
+      }
+
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .time {
+        min-height: 72px;
+        font-size: 15px;
+      }
+
+      .timeline {
+        padding: 14px 12px 16px;
+      }
+
+      .event {
+        grid-template-columns: 58px minmax(0, 1fr);
+        gap: 12px;
+        min-height: 138px;
+        padding: 12px;
+      }
+
+      .event:not(:last-child)::before,
+      .event:nth-child(even):not(:last-child)::before {
+        left: 35px;
+        right: auto;
+        top: 68px;
+        bottom: -24px;
+        width: 2px;
+        border: 0;
+        border-radius: 0;
+        background: repeating-linear-gradient(180deg, rgba(24, 89, 67, .34) 0 8px, transparent 8px 15px);
+      }
+
+      .dot {
+        left: 20px;
+        width: 36px;
+        height: 36px;
+      }
+
+      .event-body {
+        padding: 0;
+      }
+
+      .map-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .weather {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 12mm;
+    }
+
+    @media print {
+      :root {
+        --ink: #111;
+        --muted: #444;
+        --paper: #fff;
+        --panel: #fff;
+        --line: #cfd6cb;
+        --shadow: none;
+      }
+
+      * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      html,
+      body {
+        width: 210mm;
+        background: #fff;
+      }
+
+      body {
+        color: #111;
+        font-size: 11pt;
+      }
+
+      .hero {
+        min-height: 0;
+        color: #111;
+        background: #fff;
+        border-bottom: 2px solid var(--forest);
+      }
+
+      .hero::after,
+      .print-button {
+        display: none !important;
+      }
+
+      .hero-inner,
+      .content {
+        width: auto;
+        margin: 0;
+      }
+
+      .hero-inner {
+        padding: 0 0 10mm;
+      }
+
+      .stamp {
+        border-color: var(--line);
+        color: var(--forest);
+        backdrop-filter: none;
+      }
+
+      h1 {
+        margin: 6mm 0 3mm;
+        font-size: 32pt;
+        line-height: 1;
+      }
+
+      .hero-copy {
+        max-width: none;
+        color: #333;
+        font-size: 11pt;
+      }
+
+      .facts {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: none;
+        gap: 3mm;
+        margin-top: 6mm;
+      }
+
+      .fact {
+        min-height: 0;
+        border-color: var(--line);
+        background: #fff;
+        backdrop-filter: none;
+      }
+
+      .fact small,
+      .fact strong {
+        color: #111;
+      }
+
+      .content {
+        padding: 7mm 0 0;
+      }
+
+      .control-row {
+        display: block;
+        margin-bottom: 6mm;
+      }
+
+      .controls {
+        display: none;
+      }
+
+      .notice {
+        max-width: none;
+        padding: 3mm;
+        border: 1px solid var(--line);
+        color: #222;
+      }
+
+      .dashboard,
+      .transport {
+        display: block;
+      }
+
+      .section,
+      .transport-card {
+        break-inside: avoid;
+        box-shadow: none;
+        background: #fff;
+      }
+
+      .section-header {
+        padding: 4mm 0 3mm;
+      }
+
+      .section-header,
+      .tag,
+      .event-body,
+      .route-map,
+      .map-stop,
+      .weather,
+      .transport-card {
+        border-color: var(--line);
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 3mm;
+        padding: 4mm 0 5mm;
+        background-size: 8mm 8mm;
+        overflow: visible;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .route-legend {
+        display: flex;
+        padding: 3mm 0 1mm;
+        gap: 2mm;
+      }
+
+      .event {
+        break-inside: avoid;
+        grid-template-columns: 23mm minmax(0, 1fr);
+        min-height: 0;
+        padding: 3mm;
+        transform: none !important;
+        box-shadow: none;
+      }
+
+      .event:not(:last-child)::before,
+      .event:nth-child(even):not(:last-child)::before {
+        display: none;
+      }
+
+      .time {
+        margin-top: 12mm;
+        min-height: 13mm;
+        padding: 2mm;
+        box-shadow: none;
+      }
+
+      .dot {
+        left: 6mm;
+        top: 4mm;
+        width: 10mm;
+        height: 10mm;
+        box-shadow: 0 0 0 1.5pt currentColor;
+      }
+
+      .event-body {
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .route-map {
+        min-height: 0;
+        margin: 4mm 0 6mm;
+      }
+
+      .sidebar {
+        display: block;
+      }
+
+      .mini,
+      .transport-card {
+        margin-top: 5mm;
+        padding: 4mm;
+      }
+
+      .weather,
+      .transport {
+        page-break-inside: avoid;
+      }
+
+      .weather-icon,
+      input[type="checkbox"],
+      .bar span,
+      .mark {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .credit {
+        margin-top: 7mm;
+      }
+    }
+  </style>
+</head>
+<body data-mode="default">
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="stamp">Safari day plan</div>
+      <h1>深圳野生动物园</h1>
+      <p class="hero-copy">2026年4月25日，周六，两人同行。按 9:30 入园设计，把动物活跃时段、午后表演和阵雨缓冲放在同一条路线里。</p>
+      <div class="facts" aria-label="行程概览">
+        <div class="fact">
+          <small>入园时间</small>
+          <strong>09:30</strong>
+        </div>
+        <div class="fact">
+          <small>人数</small>
+          <strong>2 人</strong>
+        </div>
+        <div class="fact">
+          <small>闭园</small>
+          <strong>18:00</strong>
+        </div>
+        <div class="fact">
+          <small>天气策略</small>
+          <strong>阵雨转多云</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="control-row">
+      <div class="controls">
+        <div class="segmented" aria-label="路线模式">
+          <button type="button" aria-pressed="true" data-mode="default">完整路线</button>
+          <button type="button" aria-pressed="false" data-mode="rain">雨天路线</button>
+        </div>
+        <button class="print-button" type="button" data-print aria-label="打印或导出 PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M7 3h10v5H7V3Zm10 14h2v-6H5v6h2v-4h10v4Zm-8 4h6v-6H9v6ZM5 9h14a2 2 0 0 1 2 2v7h-4v5H7v-5H3v-7a2 2 0 0 1 2-2Zm13 3.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z"/>
+          </svg>
+          打印 / 导出 PDF
+        </button>
+      </div>
+      <p class="notice">周六表演时间可能临时调整。入园后先看门口公告牌，把 13:00 海洋天地和 16:00 左右大型表演作为两条固定锚点。</p>
+    </div>
+
+    <section class="dashboard" aria-label="游玩计划看板">
+      <div class="section">
+        <div class="section-header">
+          <h2>园区路线卡片</h2>
+          <span class="tag default-only">上午看动物，下午看表演</span>
+          <span class="tag rain-only">室内优先，户外见缝插针</span>
+        </div>
+
+        <div class="route-legend default-only" aria-label="路线卡片图例">
+          <span><i></i>户外展区</span>
+          <span><i data-kind="show"></i>表演锚点</span>
+          <span><i data-kind="food"></i>餐饮休整</span>
+          <span><i data-kind="indoor"></i>室内缓冲</span>
+          像园区导览图一样，从编号图钉一路顺着停靠点走。
+        </div>
+        <div class="route-legend rain-only" aria-label="雨天路线卡片图例">
+          <span><i data-kind="indoor"></i>室内优先</span>
+          <span><i data-kind="show"></i>固定表演</span>
+          <span><i data-kind="food"></i>提前午餐</span>
+          雨天路线减少开阔区停留，按最近的室内点串起来。
+        </div>
+
+        <div class="timeline default-only">
+          <article class="event">
+            <div class="time">09:10<br>09:30</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>到达门口，刷证入园</h3>
+              <p>提前到门口处理取票、安检和洗手间。周六不要卡点到，9:30 后排队会明显增加。</p>
+            </div>
+          </article>
+          <article class="event">
+            <div class="time">09:30<br>10:20</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>长臂猿群岛、珍稀鸟街、食草动物区</h3>
+              <p>先走轻松户外线，上午动物状态更好，也能避开下午热度和人流。</p>
+            </div>
+          </article>
+          <article class="event" data-type="show">
+            <div class="time">10:20<br>11:20</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>猛兽谷或野象谷，卡 11:00 场次</h3>
+              <p>若当天有虎跳峡或大象展示，二选一即可，不建议两头赶。</p>
+            </div>
+          </article>
+          <article class="event" data-type="indoor">
+            <div class="time">11:20<br>12:10</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>熊猫庄园、企鹅岛、水母馆</h3>
+              <p>把室内和半室内展区放在午前，天气转热或阵雨时都比较稳。</p>
+            </div>
+          </article>
+          <article class="event" data-type="food">
+            <div class="time">12:10<br>12:50</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>午餐和休整</h3>
+              <p>下午表演集中，午餐不要拖太久。补水、整理雨具，提前往海洋天地移动。</p>
+            </div>
+          </article>
+          <article class="event" data-type="show">
+            <div class="time">13:00<br>13:35</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>《欢乐的海洋》</h3>
+              <p>周末常见场次为 13:00、15:00。推荐看 13:00，后面时间更从容。</p>
+            </div>
+          </article>
+          <article class="event">
+            <div class="time">13:35<br>15:20</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>猿猴村、杂食馆、珍稀鸟街补漏</h3>
+              <p>这段作为机动区。遇到阵雨就切换到室内展馆，天气转好再回户外。</p>
+            </div>
+          </article>
+          <article class="event" data-type="show">
+            <div class="time">15:20<br>16:40</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>提前占位，看《百兽盛会》</h3>
+              <p>大型表演常在 16:00 左右。建议至少提前 20 分钟到附近，不要最后一刻赶场。</p>
+            </div>
+          </article>
+          <article class="event" data-type="indoor">
+            <div class="time">16:40<br>18:00</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>科普馆、动物宝宝乐园、湿地园，离园</h3>
+              <p>顺路收尾，17:30 左右往出口移动。18:00 闭园，别把购物和洗手间留到最后。</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="timeline rain-only">
+          <article class="event" data-type="indoor">
+            <div class="time">09:30<br>10:30</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>先冲熊猫庄园、企鹅岛、水母馆</h3>
+              <p>如果入园时下雨，先拿下半室内展区，等雨势变小再补户外动物。</p>
+            </div>
+          </article>
+          <article class="event">
+            <div class="time">10:30<br>11:40</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>雨小走猛兽谷，雨大进科普馆</h3>
+              <p>保持路线短，避免在开阔区域长时间停留。鞋底防滑比打伞更关键。</p>
+            </div>
+          </article>
+          <article class="event" data-type="food">
+            <div class="time">11:40<br>12:50</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>提前午餐，避开高峰</h3>
+              <p>雨天餐厅会更拥挤，略早吃饭能换来 13:00 表演更好的座位。</p>
+            </div>
+          </article>
+          <article class="event" data-type="show">
+            <div class="time">13:00<br>13:35</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>海洋天地表演</h3>
+              <p>作为雨天核心锚点。若错过 13:00，改看 15:00，把中间时间留给室内展馆。</p>
+            </div>
+          </article>
+          <article class="event" data-type="indoor">
+            <div class="time">13:40<br>15:20</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>水母馆、鲨鱼馆、科普馆补足</h3>
+              <p>这段按雨势调整，不追求全覆盖，只保证体验稳定。</p>
+            </div>
+          </article>
+          <article class="event" data-type="show">
+            <div class="time">15:20<br>16:40</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>大型表演或最近室内替代</h3>
+              <p>若大型表演受天气影响，直接转回海洋天地附近或科普馆，不在雨里硬等。</p>
+            </div>
+          </article>
+          <article class="event">
+            <div class="time">16:40<br>18:00</div>
+            <div class="dot"></div>
+            <div class="event-body">
+              <h3>靠近出口慢收尾</h3>
+              <p>雨天路面湿滑，预留离园时间。回程地铁优先，少受路面交通影响。</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="route-map" aria-label="路线示意">
+          <div class="map-grid">
+            <div class="map-stop">
+              <b>入口</b>
+              <span>9:30 入园，先看公告牌</span>
+            </div>
+            <div class="map-stop">
+              <b>户外动物</b>
+              <span>鸟街、食草区、猛兽谷</span>
+            </div>
+            <div class="map-stop">
+              <b>室内缓冲</b>
+              <span>熊猫、企鹅、水母、科普</span>
+            </div>
+            <div class="map-stop">
+              <b>海洋天地</b>
+              <span>13:00 优先场</span>
+            </div>
+            <div class="map-stop">
+              <b>大型表演</b>
+              <span>16:00 左右提前占位</span>
+            </div>
+            <div class="map-stop">
+              <b>出口</b>
+              <span>17:30 开始往外收</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <section class="section mini">
+          <h2>天气判断</h2>
+          <div class="weather">
+            <div class="weather-icon" aria-hidden="true">☔</div>
+            <p><strong>阵雨转多云，早晚轻雾。</strong><br>上午先抢动物状态，下午用表演和室内展馆吸收天气波动。</p>
+          </div>
+        </section>
+
+        <section class="section mini">
+          <h2>预算</h2>
+          <div class="budget-row">
+            <label><span>门票</span><strong>¥398-¥480</strong></label>
+            <div class="bar"><span style="width: 72%"></span></div>
+          </div>
+          <div class="budget-row">
+            <label><span>餐饮饮品</span><strong>¥120-¥200</strong></label>
+            <div class="bar"><span style="width: 38%"></span></div>
+          </div>
+          <div class="budget-row">
+            <label><span>可选项目</span><strong>¥60+</strong></label>
+            <div class="bar"><span style="width: 20%"></span></div>
+          </div>
+          <div class="budget-row">
+            <label><span>两人合计</span><strong>¥520-¥740</strong></label>
+            <div class="bar"><span style="width: 86%; background: linear-gradient(90deg, var(--coral), var(--gold));"></span></div>
+          </div>
+        </section>
+
+        <section class="section mini">
+          <h2>重点项目</h2>
+          <ul class="highlights">
+            <li><span class="mark">1</span><span><b>熊猫庄园</b><br>午前或雨天优先，动线稳定。</span></li>
+            <li><span class="mark">2</span><span><b>海洋天地</b><br>13:00 场作为下午锚点。</span></li>
+            <li><span class="mark">3</span><span><b>猛兽谷</b><br>天气转好时补足户外体验。</span></li>
+            <li><span class="mark">4</span><span><b>百兽盛会</b><br>提前占位，不临时赶场。</span></li>
+          </ul>
+        </section>
+
+        <section class="section mini">
+          <h2>出发清单</h2>
+          <div class="checklist">
+            <label><input type="checkbox">两人身份证，确认购票证件一致</label>
+            <label><input type="checkbox">折伞或轻便雨衣</label>
+            <label><input type="checkbox">防滑舒适鞋</label>
+            <label><input type="checkbox">充电宝、纸巾、湿巾</label>
+            <label><input type="checkbox">小瓶水，入园后再补给</label>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="transport" aria-label="交通与执行提醒">
+      <article class="transport-card">
+        <h3>地铁优先</h3>
+        <p>乘 7 号线到「西丽湖」站，B 出口前往园区。周六遇雨时比自驾更稳。</p>
+      </article>
+      <article class="transport-card">
+        <h3>购票节奏</h3>
+        <p>尽量在 4月24日晚或 4月25日 9:00 前完成购票，优惠票常有下单时间限制。</p>
+      </article>
+      <article class="transport-card">
+        <h3>现场第一步</h3>
+        <p>进门先拍当天表演公告牌，再决定 11:00 和 15:00 附近是否追场。</p>
+      </article>
+    </section>
+
+    <p class="credit">
+      图片：Dinkun Chen / Wikimedia Commons，CC BY-SA 4.0。行程依据深圳野生动物园公开营业时间、深圳市气象台未来一周预报及常见周末表演安排整理；具体以园区当天公告为准。
+    </p>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll("[data-mode]");
+    const printButton = document.querySelector("[data-print]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const mode = button.dataset.mode;
+        document.body.dataset.mode = mode;
+
+        buttons.forEach((item) => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+      });
+    });
+
+    printButton?.addEventListener("click", () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>
